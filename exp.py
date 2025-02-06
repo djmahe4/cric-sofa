@@ -70,7 +70,7 @@ def visualize_bowler(role_stats,batsman_stats):
             delta=differences[a],
             delta_color='inverse'
             )
-
+@st.cache_data
 def analyze_batting_stats(det, role="Right", name="player1"):
     """
     Analyzes batting stats and returns the average stats per batting_type.
@@ -195,6 +195,7 @@ def visualize_batsman(role_stats,bowler_stats):
                 delta=f"{differences[idx]:+.2f}",
                 delta_color='inverse'
             )
+@st.cache_data
 def analyze_bowling_stats(det, bowler_name, bowling_type):
     """
     Calculates stats for a specific bowler.
