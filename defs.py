@@ -14,6 +14,7 @@ from matplotlib.animation import FuncAnimation,PillowWriter
 import streamlit as st
 import imageio
 import tempfile,os
+from exp import analyze_bowling_stats,visualize_batsman
 
 def converter(gif_path):
     #os.popen("pip install imageio[ffmpeg]")
@@ -74,59 +75,6 @@ def init():
             continue
             #diction.update({f"{i['homeTeam']['name']} vs {i['awayTeam']['name']}":i['id']})
     return diction
-def analyze_bowling_stats(det, bowling_type, player_slug):
-    """
-    Analyzes a bowler's stats against a specific batsman.
-
-    Args:
-        det: The dictionary containing bowling data.
-        bowling_type: The key in the dictionary (e.g., 'Right-arm fast medium').
-        player_slug: The slug of the bowler to analyze (e.g., 'ishant-sharma').
-
-    Returns:
-        A Pandas DataFrame with the bowler's stats, or None if no matching data is found.
-    """
-
-    if bowling_type not in det:
-        print(f"Bowling type '{bowling_type}' not found in data.")
-        return None
-
-    bowling_data = det[bowling_type]
-    bowlers = bowling_data['bowler']
-
-    # Find indices where the bowler matches the player_slug
-    matching_indices = [i for i, bowler in enumerate(bowlers) if bowler == player_slug]
-
-    if not matching_indices:
-        print(f"Bowler '{player_slug}' not found in '{bowling_type}' data.")
-        return None
-
-    # Extract relevant stats for the matching indices
-    stats = {key: [value[i] for i in matching_indices] for key, value in bowling_data.items()}
-
-    df = pd.DataFrame(stats)
-
-    # Calculate additional stats
-    df['dots'] = df['runs'].apply(lambda x: 1 if x == 0 or x== "W" else 0)
-    df['is_boundary'] = df['runs'].apply(lambda x: 1 if x in [4, 6] else 0)
-    df['balls']=df.shape[0]
-    total_runs=df['runs'].apply(lambda x: 0 if x=='W' else x).sum()
-    df['total_runs']=total_runs
-    dots=df['dots'].sum()
-    df['total_dots']=dots
-    df['strike_rate']=(total_runs/df['balls'])*100
-    boundaries=df['is_boundary'].sum()
-    df['total_boundaries']=boundaries
-    dot_percentage=(dots/df['balls'])*100
-    boundary_percentage=(boundaries/df['balls'])*100
-    df['dot_percentage']=dot_percentage
-    df['boundary_percentage']=boundary_percentage
-    zone_counts = df['zone'].value_counts().to_dict()
-    for zone, count in zone_counts.items():
-        df[f'runs_in_{zone}'] = df.loc[df['zone']==zone,'runs'].apply(lambda x: 0 if x=='W' else x).sum()
-    df['wickets']=df['wicket'].apply(lambda x: 1 if x!='' else 0).sum()
-    return df
-
 def get_matches(pid,matches=[], format="T20", ind=0):
   #if matches is None:
     #matches = []
@@ -316,11 +264,12 @@ def create_bat_animation(det,role):
         try:
           if bowler_name != det[role]['bowler'][frame+1] and bowler_name not in bowlers:
               df =analyze_bowling_stats(det, role, det[role]['bowler'][frame])
-              last_row = df.iloc[-1]
+              #last_row = df.iloc[-1]
               print(f"{bowler_name} ({bowler_type})")
-              print(last_row)
+              #print(last_row)
               st.markdown(f"## {bowler_name} ({bowler_type})")
-              st.dataframe(last_row.transpose())
+              #st.dataframe(last_row.transpose())
+              visualize_batsman(df[1],df[0])
               bowlers.append(bowler_name)
         except:
           print("Last record")
