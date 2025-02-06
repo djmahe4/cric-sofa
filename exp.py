@@ -4,8 +4,8 @@ pd.set_option('display.max_columns', None)
 import pandas as pd
 import streamlit as st
 import pandas as pd
-
-def visualize(role_stats,batsman_stats):
+#for_bowling_analysis
+def visualize_bat(role_stats,batsman_stats):
     #negatives=['economy','strike_rate','total_boundaries','boundary_percentage',"dot_percentage"]
     st.write(role_stats,batsman_stats)
     differences = {}
