@@ -237,7 +237,7 @@ def create_ball_animation(det,role):
               #print(last_row)
               st.markdown(f"## {batsman_name} ({batsman_type})")
               #visualize_bowler(st.session_state.df[1],st.session_state.df[0])
-              st.dataframe(last_row.transpose(),hide_index=True)
+              st.dataframe(last_row.transpose())
               batters.append(batsman_name)
         except:
           print("Last record")
