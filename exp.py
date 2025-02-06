@@ -7,7 +7,7 @@ import pandas as pd
 #bowling_pov
 def visualize_bowler(role_stats,batsman_stats):
     #negatives=['economy','strike_rate','total_boundaries','boundary_percentage',"dot_percentage"]
-    #st.write(role_stats,batsman_stats)
+    st.write(role_stats,batsman_stats)
     #st.header("Performance Comparison")
 
     # Normalize role_stats keys by removing 'Average ' prefix
