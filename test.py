@@ -1,5 +1,5 @@
 #Bowler perspective Analysis
-from exp import visualize_bowler,analyze_batting_stats
+from exp import visualize_batsman,analyze_bowling_stats
 #from defs import *
 import datetime,requests
 #from defs import get_matches
