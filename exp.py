@@ -259,7 +259,7 @@ def analyze_bowling_stats(det, bowler_name, bowling_type):
 
             # Compute average stats
         mean_stats = df[numeric_cols].mean()
-        mean_stats['batting_type'] = batting_type  # Add batting type to the stats
+        mean_stats['bowler'] = bowling_type  # Add batting type to the stats
             # Append the stats to the list
         all_stats.append(mean_stats)
         # Create a DataFrame with the average stats for each batting type
