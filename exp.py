@@ -1,6 +1,6 @@
 import pandas as pd
-from icecream import ic
-pd.set_option('display.max_columns', None)
+# icecream import ic
+#pd.set_option('display.max_columns', None)
 import pandas as pd
 import streamlit as st
 import pandas as pd
