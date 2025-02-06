@@ -264,12 +264,13 @@ def create_bat_animation(det,role):
         try:
           if bowler_name != det[role]['bowler'][frame+1] and bowler_name not in bowlers:
               df =analyze_bowling_stats(det, role, det[role]['bowler'][frame])
+              st.session_state.df=df
               #last_row = df.iloc[-1]
               print(f"{bowler_name} ({bowler_type})")
               #print(last_row)
               st.markdown(f"## {bowler_name} ({bowler_type})")
               #st.dataframe(last_row.transpose())
-              visualize_batsman(df[1],df[0])
+              visualize_batsman(st.session_state.df[1],st.session_state.df[0])
               bowlers.append(bowler_name)
         except:
           print("Last record")
