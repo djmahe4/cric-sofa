@@ -66,7 +66,6 @@ def visualize_bowler(role_stats,batsman_stats):
     return
 @st.cache_data
 def analyze_batting_stats(det, role="Right", name="player1"):
-    global df
     """
     Analyzes batting stats and returns the average stats per batting_type.
 
@@ -193,7 +192,7 @@ def visualize_batsman(role_stats,bowler_stats):
     return
 @st.cache_data
 def analyze_bowling_stats(det, bowler_name, bowling_type):
-    global df
+
     """
     Calculates stats for a specific bowler.
 
