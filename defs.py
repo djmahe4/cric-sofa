@@ -14,7 +14,7 @@ from matplotlib.animation import FuncAnimation,PillowWriter
 import streamlit as st
 import imageio
 import tempfile,os
-from exp import analyze_bowling_stats,visualize_batsman
+from exp import analyze_batting_stats,visualize_bowler
 
 def converter(gif_path):
     #os.popen("pip install imageio[ffmpeg]")
