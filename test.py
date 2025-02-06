@@ -1,5 +1,5 @@
 #Bowler perspective Analysis
-
+from exp import visualize_bowler,analyze_batting_stats
 #from defs import *
 import datetime,requests
 #from defs import get_matches
@@ -107,15 +107,15 @@ def opp_team_venue(mid,pid):
     res = conn.getresponse()
     data = res.read()
     p_details = json.loads(data.decode("utf-8"))
-    st.write(a_id,a_name,h_name,h_id,venue)
+    #st.write(a_id,a_name,h_name,h_id,venue)
     for team in ['home','away']:
         for player in p_details[team]['players']:
             if pid==player['player']['id']:
                 if team == 'home':
-                    st.write(a_name,venue)
+                    #st.write(a_name,venue)
                     return a_name,venue
                 else:
-                    st.write(h_name,venue)
+                    #st.write(h_name,venue)
                     return h_name,venue
     #return None
 def get_matches(pid,matches=[], format="T20", ind=0):
@@ -141,76 +141,6 @@ def get_matches(pid,matches=[], format="T20", ind=0):
   if jdata.get('hasNextPage'):
     get_matches(pid,matches, format, ind + 1)
   return matches
-def analyze_batting_stats(det, role="Right", name="player1"):
-    """
-    Analyzes batting stats and returns the average stats per batting_type.
-
-    Args:
-        det: The dictionary containing batting data.
-
-    Returns:
-        A Pandas DataFrame with the average stats for each batting type.
-    """
-
-    all_stats = []
-
-    for batting_type, batting_data in det.items():
-        # Create DataFrame from batting_data
-        df = pd.DataFrame(batting_data)
-
-        # Convert 'runs' to numeric values, replacing 'W' with 0
-        df['runs'] = df['runs'].apply(lambda x: 0 if x == 'W' else int(x))
-
-        # Calculate additional stats
-        df['dots'] = df['runs'].apply(lambda x: 1 if x == 0 else 0)
-        df['is_boundary'] = df['runs'].apply(lambda x: 1 if x in [4, 6] else 0)
-        df['balls'] = df.shape[0]
-        total_runs = df['runs'].sum()
-        df['total_runs'] = total_runs
-        df['economy'] = df['total_runs'] / (df['balls'] / 6)
-        total_dots = df['dots'].sum()
-        df['total_dots'] = total_dots
-        df['strike_rate'] = (total_runs / df['balls']) * 100
-        total_boundaries = df['is_boundary'].sum()
-        df['total_boundaries'] = total_boundaries
-        dot_percentage = (total_dots / df['balls']) * 100
-        boundary_percentage = (total_boundaries / df['balls']) * 100
-        df['dot_percentage'] = dot_percentage
-        df['boundary_percentage'] = boundary_percentage
-
-        # Calculate total wickets
-        df['wickets'] = df['wicket'].apply(lambda x: 1 if x != '' else 0)
-        total_wickets = df['wickets'].sum()
-        df['total_wickets'] = total_wickets
-
-        # Calculate zone-specific stats
-        zones = df['zone'].unique()
-        for zone in zones:
-            zone_df = df[df['zone'] == zone]
-            wickets_in_zone = zone_df['wickets'].sum()
-            runs_in_zone = zone_df['runs'].sum()
-            df[f'wickets_in_{zone}'] = wickets_in_zone
-            df[f'runs_in_{zone}'] = runs_in_zone
-
-        # Select numeric columns for averaging
-        numeric_cols = df.select_dtypes(include='number').columns
-
-        # Compute average stats
-        mean_stats = df[numeric_cols].mean()
-        mean_stats['batting_type'] = batting_type  # Add batting type to the stats
-
-        # Append the stats to the list
-        all_stats.append(mean_stats)
-
-    # Create a DataFrame with the average stats for each batting type
-    avg_stats_df = pd.DataFrame(all_stats).reset_index(drop=True)
-    # Find rows where 'batsman' equals batsman_name
-    batsman_rows =df[df['batsman'] == name]
-
-    # Find rows where 'batting_type' equals role
-    role_rows =  avg_stats_df[ avg_stats_df['batting_type'] == role]
-
-    return batsman_rows,role_rows
 
 def create_ball_animation(det,role):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
@@ -247,11 +177,12 @@ def create_ball_animation(det,role):
           if batsman_name != det[role]['batsman'][frame+1] and batsman_name not in batters:
               #ax1.clear()
               df =analyze_batting_stats(det, role, det[role]['batsman'][frame])
-              last_row = df.iloc[-1]
+              #last_row = df.iloc[-1]
               print(f"{batsman_name} ({batsman_type})")
-              print(last_row)
+              #print(last_row)
               st.markdown(f"## {batsman_name} ({batsman_type})")
-              st.dataframe(last_row.transpose())
+              visualize_bowler(df[1],df[0])
+              #st.dataframe(last_row.transpose())
               batters.append(batsman_name)
         except:
           print("Last record")
@@ -332,7 +263,7 @@ def bowler_ball_by_ball(incidents):
 #@st.cache_data
 def append_ball_data(mid,pid,incidents=[]):
     info = opp_team_venue(mid, pid)
-    st.write(mid,pid)
+    #st.write(mid,pid)
     #incidents=[]
     url = f"https://www.sofascore.com/api/v1/event/{mid}/incidents"
     parsed = urlparse(url)
@@ -356,7 +287,7 @@ def main(st):
         with st.spinner("Filtering data.."):
             for i in st.session_state.matches:
                 try:
-                    st.write(i, st.session_state.pid)
+                    #st.write(i, st.session_state.pid)
                     incidents = append_ball_data(i, st.session_state.pid, incidents)
                     #st.write(incidents)
                 except KeyError:
@@ -374,7 +305,7 @@ def main(st):
         for role in st.session_state.det2:
             with st.spinner(f"Performance analysis vs {role}"):
                 st.markdown(f"# vs {role}")
-                st.write(det)
+                #st.write(det)
                 create_ball_animation(det, role)
                 #file = create_ball_animation(det, role)
                 #video_file = open(file, 'rb')
