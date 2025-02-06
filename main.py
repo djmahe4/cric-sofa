@@ -31,6 +31,7 @@ if 'match_selected' not in st.session_state:
     st.session_state.nmat=None
     st.session_state.info=None
     st.session_state.ovr={}
+    st.session_state.df=None
 
 def reset():
     st.session_state.match_selected = False
