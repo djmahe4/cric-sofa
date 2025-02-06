@@ -263,8 +263,8 @@ def create_bat_animation(det,role):
         title_text.set_text(f"{bowler_name} ({bowler_type})")
         try:
           if bowler_name != det[role]['bowler'][frame+1] and bowler_name not in bowlers:
-              df =analyze_bowling_stats(det, role, det[role]['bowler'][frame])
-              st.session_state.df=df
+              mdf =analyze_bowling_stats(det, role, det[role]['bowler'][frame])
+              st.session_state.df=mdf
               #last_row = df.iloc[-1]
               print(f"{bowler_name} ({bowler_type})")
               #print(last_row)
