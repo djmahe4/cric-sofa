@@ -268,7 +268,7 @@ def analyze_bowling_stats(det, bowler_name, bowling_type):
     bowler_rows = df[df['bowler'] == bowler_name]
 
         # Find rows where 'batting_type' equals role
-    role_rows = avg_stats_df[avg_stats_df['batting_type'] == bowling_type]
+    role_rows = avg_stats_df[avg_stats_df['bowler'] == bowling_type]
 
     return bowler_rows.to_dict(),role_rows.to_dict()
 
