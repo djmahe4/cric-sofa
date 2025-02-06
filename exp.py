@@ -46,8 +46,8 @@ def visualize_bowler(role_stats,batsman_stats):
 
     for a,row in enumerate(cols):
         #ic(stats_keys[a],
-            batsman_values[a],
-            differences[a])
+            #batsman_values[a],
+            #differences[a])
         if batsman_values[a]==0 or stats_keys[a] in ['wickets','runs'] :
             continue
         if str(stats_keys[a]) in [ "dot" ,"balls","runs" ] :
