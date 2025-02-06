@@ -66,6 +66,7 @@ def visualize_bowler(role_stats,batsman_stats):
     return
 @st.cache_data
 def analyze_batting_stats(det, role="Right", name="player1"):
+    global df
     """
     Analyzes batting stats and returns the average stats per batting_type.
 
@@ -192,6 +193,7 @@ def visualize_batsman(role_stats,bowler_stats):
     return
 @st.cache_data
 def analyze_bowling_stats(det, bowler_name, bowling_type):
+    global df
     """
     Calculates stats for a specific bowler.
 
@@ -266,7 +268,7 @@ def analyze_bowling_stats(det, bowler_name, bowling_type):
     avg_stats_df = pd.DataFrame(all_stats).reset_index(drop=True)
         # Find rows where 'batsman' equals batsman_name
     bowler_rows = df[df['bowler'] == bowler_name]
-    st.dataframe(bowler_rows)
+    print(bowler_rows)
         # Find rows where 'batting_type' equals role
     role_rows = avg_stats_df[avg_stats_df['bowler'] == bowling_type]
 
