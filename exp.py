@@ -142,23 +142,23 @@ def analyze_batting_stats(det, role="Right", name="player1"):
 
     return batsman_rows.to_dict(),role_rows.to_dict()
 
-
-# Sample data dictionary
-sample_data = {
-    "Right": {
-        "batsman": ["player1", "player2", "player3", "player1", "player2"],
-        "runs": [4, 6, 0, "W", 1],
-        "zone": ["off", "on", "off", "on", "off"],
-        "wicket": ["", "", "", "bowled", ""]
-    },
-    "Left": {
-        "batsman": ["player1", "player2", "player3", "player4"],
-        "runs": [1, 2, "W", 3],
-        "zone": ["on", "off", "on", "off"],
-        "wicket": ["", "", "caught", ""]
+if __name__=="__main__":
+    # Sample data dictionary
+    sample_data = {
+        "Right": {
+            "batsman": ["player1", "player2", "player3", "player1", "player2"],
+            "runs": [4, 6, 0, "W", 1],
+            "zone": ["off", "on", "off", "on", "off"],
+            "wicket": ["", "", "", "bowled", ""]
+        },
+        "Left": {
+            "batsman": ["player1", "player2", "player3", "player4"],
+            "runs": [1, 2, "W", 3],
+            "zone": ["on", "off", "on", "off"],
+            "wicket": ["", "", "caught", ""]
+        }
     }
-}
-
-# Test the function with sample data
-df = analyze_batting_stats(sample_data)
-visualize(df[1],df[0])
+    
+    # Test the function with sample data
+    df = analyze_batting_stats(sample_data)
+    visualize(df[1],df[0])
