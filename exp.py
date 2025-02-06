@@ -8,13 +8,6 @@ import pandas as pd
 def visualize_bowler(role_stats,batsman_stats):
     #negatives=['economy','strike_rate','total_boundaries','boundary_percentage',"dot_percentage"]
     #st.write(role_stats,batsman_stats)
-    differences = {}
-    for stat in batsman_stats:
-        role_stat_key = 'Average ' + stat
-        if role_stat_key in role_stats:
-            differences[stat] = batsman_stats[stat] - role_stats[role_stat_key]
-        else:
-            differences[stat] =batsman_stats[stat]
     #st.header("Performance Comparison")
 
     # Normalize role_stats keys by removing 'Average ' prefix
