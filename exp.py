@@ -15,7 +15,7 @@ def visualize_bowler(role_stats,batsman_stats):
             differences[stat] = batsman_stats[stat] - role_stats[role_stat_key]
         else:
             differences[stat] =batsman_stats[stat]
-    st.header("Performance Comparison")
+    #st.header("Performance Comparison")
 
     # Normalize role_stats keys by removing 'Average ' prefix
     normalized_role_stats = role_stats
