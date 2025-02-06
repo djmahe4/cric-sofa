@@ -176,12 +176,13 @@ def create_ball_animation(det,role):
         try:
           if batsman_name != det[role]['batsman'][frame+1] and batsman_name not in batters:
               #ax1.clear()
-              df =analyze_batting_stats(det, role, det[role]['batsman'][frame])
+              mdf =analyze_batting_stats(det, role, det[role]['batsman'][frame])
+              st.session_state.df=mdf
               #last_row = df.iloc[-1]
               print(f"{batsman_name} ({batsman_type})")
               #print(last_row)
               st.markdown(f"## {batsman_name} ({batsman_type})")
-              visualize_bowler(df[1],df[0])
+              visualize_bowler(st.session_state.df[1],st.session_state.df[0])
               #st.dataframe(last_row.transpose())
               batters.append(batsman_name)
         except:
