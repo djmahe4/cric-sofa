@@ -1,5 +1,5 @@
 import pandas as pd
-from icecream import ic
+#from icecream import ic
 pd.set_option('display.max_columns', None)
 import pandas as pd
 import streamlit as st
@@ -7,7 +7,7 @@ import pandas as pd
 #for_bowling_analysis
 def visualize_bat(role_stats,batsman_stats):
     #negatives=['economy','strike_rate','total_boundaries','boundary_percentage',"dot_percentage"]
-    st.write(role_stats,batsman_stats)
+    #st.write(role_stats,batsman_stats)
     differences = {}
     for stat in batsman_stats:
         role_stat_key = 'Average ' + stat
@@ -22,7 +22,7 @@ def visualize_bat(role_stats,batsman_stats):
 
     # Find common stats between batsman_stats and normalized_role_stats
     common_stats = set(batsman_stats.keys()).intersection(normalized_role_stats.keys())
-    ic(common_stats)
+    #ic(common_stats)
     # Initialize lists to store data for display
     stats_keys = []
     batsman_values = []
@@ -52,9 +52,6 @@ def visualize_bat(role_stats,batsman_stats):
     cols = st.columns(num_stats)
 
     for a,row in enumerate(cols):
-        ic(stats_keys[a],
-            batsman_values[a],
-            differences[a])
         if batsman_values[a]==0 or stats_keys[a] in ['wickets','runs'] :
             continue
         if str(stats_keys[a]) in [ "dot" ,"balls","runs" ] :
