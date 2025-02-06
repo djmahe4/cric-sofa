@@ -65,6 +65,7 @@ def visualize_bowler(role_stats,batsman_stats):
             )
 @st.cache_data
 def analyze_batting_stats(det, role="Right", name="player1"):
+    st.write(det,role,name)
     """
     Analyzes batting stats and returns the average stats per batting_type.
 
@@ -133,7 +134,7 @@ def analyze_batting_stats(det, role="Right", name="player1"):
 
     # Find rows where 'batting_type' equals role
     role_rows =  avg_stats_df[ avg_stats_df['batting_type'] == role]
-
+    st.write(role_rows)
     return batsman_rows.to_dict(),role_rows.to_dict()
 #batting_pov
 def visualize_batsman(role_stats,bowler_stats):
