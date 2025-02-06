@@ -15,7 +15,7 @@ def visualize_bowler(role_stats,batsman_stats):
 
     # Find common stats between batsman_stats and normalized_role_stats
     common_stats = set(batsman_stats.keys()).intersection(normalized_role_stats.keys())
-    ic(common_stats)
+    #ic(common_stats)
     # Initialize lists to store data for display
     stats_keys = []
     batsman_values = []
@@ -45,7 +45,7 @@ def visualize_bowler(role_stats,batsman_stats):
     cols = st.columns(num_stats)
 
     for a,row in enumerate(cols):
-        ic(stats_keys[a],
+        #ic(stats_keys[a],
             batsman_values[a],
             differences[a])
         if batsman_values[a]==0 or stats_keys[a] in ['wickets','runs'] :
@@ -65,7 +65,6 @@ def visualize_bowler(role_stats,batsman_stats):
             )
 @st.cache_data
 def analyze_batting_stats(det, role="Right", name="player1"):
-    st.write(det,role,name)
     """
     Analyzes batting stats and returns the average stats per batting_type.
 
@@ -89,7 +88,7 @@ def analyze_batting_stats(det, role="Right", name="player1"):
         df['dots'] = df['runs'].apply(lambda x: 1 if x == 0 else 0)
         df['is_boundary'] = df['runs'].apply(lambda x: 1 if x in [4, 6] else 0)
         df['balls'] = df.shape[0]
-        ic(df['balls'])
+        #ic(df['balls'])
         total_runs = df['runs'].sum()
         df['total_runs'] = total_runs
         df['economy'] = df['total_runs'] / (df['balls'] / 6)
@@ -134,7 +133,7 @@ def analyze_batting_stats(det, role="Right", name="player1"):
 
     # Find rows where 'batting_type' equals role
     role_rows =  avg_stats_df[ avg_stats_df['batting_type'] == role]
-    st.write(role_rows)
+    #st.write(role_rows)
     return batsman_rows.to_dict(),role_rows.to_dict()
 #batting_pov
 def visualize_batsman(role_stats,bowler_stats):
@@ -166,7 +165,7 @@ def visualize_batsman(role_stats,bowler_stats):
         bowler_values.append(bowler_value)
         bowling_type_values.append(role_value)
         differences.append(difference)
-        ic(stat,bowler_value,role_value,difference)
+        #ic(stat,bowler_value,role_value,difference)
 
     # Create columns for each stat
     num_stats = len(common_stats)
@@ -232,7 +231,7 @@ def analyze_bowling_stats(det, bowler_name, bowling_type):
         df['balls'] = df.shape[0]
         #ic(df['balls'])
         total_runs = df['runs'].sum()
-        ic(total_runs)
+        #ic(total_runs)
         df['total_runs'] = total_runs
         #['economy'] = (total_runs / df['balls']) * 6 if df['balls'] > 0 else 0
         #df['economy'] = df['balls'].apply(lambda x: (total_runs / x) * 6 if x > 0 else 0)
