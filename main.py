@@ -102,7 +102,7 @@ if 'recent_got' in st.session_state and st.session_state.recent_got:
     st.write(st.session_state.nmat)
     if st.button("Done"):
         st.session_state.matches = st.session_state.recent_got[:int(st.session_state.nmat)]
-    st.write(st.session_state.matches)
+    #st.write(st.session_state.matches)
 if st.session_state.matches:
     on=st.toggle("Keep it on to analyse batting..")
     if on:
