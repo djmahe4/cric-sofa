@@ -188,7 +188,7 @@ def analyze_bowling_stats(det, bowling_type, player_slug):
     for zone, count in zone_counts.items():
         df[f'runs_in_{zone}'] = df.loc[df['zone']==zone,'runs'].apply(lambda x: 0 if x=='W' else x).sum()
     df['wickets']=df['wicket'].apply(lambda x: 1 if x!='' else 0).sum()
-    df.drop(['is_boundary','dots','runs','zone'])
+    df.drop(['is_boundary','dots','runs','zone','x','y','length'])
     return df
 def opp_team_venue(mid,pid):
     url = f"https://www.sofascore.com/api/v1/event/{mid}"
