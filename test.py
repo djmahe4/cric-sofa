@@ -171,6 +171,7 @@ def analyze_batting_stats(det, batting_type, player_slug):
         df[f'wickets_in_{zone}'] = df.loc[df['zone'] == zone, 'runs'].apply(lambda x: 1 if x == 'W' else 0).sum()
         df[f'runs_in_{zone}'] = df.loc[df['zone']==zone,'runs'].apply(lambda x: 0 if x=='W' else x).sum()
     df['wickets']=df['wicket'].apply(lambda x: 1 if x!='' else 0).sum()
+    df.drop(['is_boundary','wicket','dots','zone'])
     return df
 def get_matches(pid,matches=[], format="T20", ind=0):
   #if matches is None:
